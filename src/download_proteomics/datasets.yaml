@@ -1,0 +1,37 @@
+# Registry of downloadable proteomics datasets for ``download_proteomics``.
+#
+# Parsed by ``scverse_misc.datasets.parse_registry`` and fetched (downloaded,
+# hash-verified, cached and loaded) via ``scverse_misc.datasets.fetch``.
+#
+#   type: anndata  ->  a single .h5ad, read with anndata.read_h5ad
+#
+# Per-file keys are fixed by ``scverse_misc.datasets.FileEntry`` -- only ``name``,
+# ``url``, ``s3_key``, ``sha256`` and ``fallback_urls`` are recognised; anything else
+# is dropped with a warning. Put prose (description, license, reference, ...) at the
+# *dataset* level instead, where it lands in ``DatasetEntry.metadata`` and is surfaced
+# by ``download_proteomics.describe()``.
+#
+# Download order: ``base_url`` + ``s3_key`` first, then each of ``fallback_urls`` in
+# turn (that is how Zenodo acts as the backup mirror).
+#
+# To add a dataset: upload to S3, mirror to Zenodo, then run
+#   uv run python scripts/add_dataset.py path/to/file.h5ad
+# and paste the emitted block below.
+
+base_url: https://scverse-exampledata.s3.eu-west-1.amazonaws.com/singlecellproteomics/
+
+datasets:
+    wu2026:
+        type: anndata
+        doc_header: Wu2026 dataset
+        description: >-
+            Wu, T., Jiang, L., Mukhtar, T. et al. Single-cell proteomic landscape of the developing human brain. Nat Biotechnol 44, 1391–1404 (2026). https://doi.org/10.1038/s41587-025-02980-7
+        n_obs: 2599
+        n_vars: 4279
+        license: CC BY 4.0
+        license_url: https://creativecommons.org/licenses/by/4.0/
+        files:
+            - name: wu2026.h5ad
+              s3_key: wu2026.h5ad
+              sha256: ca3f3f4aad1019078159d91f5b6121fe15a2d626f6bd83193782cc7a00dc1eb6
+              fallback_urls:

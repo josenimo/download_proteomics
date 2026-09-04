@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+
+# uv / builds
+.venv/
+dist/
+build/
+
+# datasets downloaded into a local cache dir
+# (the default cache lives outside the repo; this covers $DOWNLOAD_PROTEOMICS_DATA_DIR pointed here)
+data/
+*.h5ad
+
+# OS
+.DS_Store

@@ -1,0 +1,44 @@
+[project]
+name = "download-proteomics"
+version = "0.1.0"
+description = "Download and load proteomics AnnData datasets from S3, with Zenodo as a backup mirror"
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [
+    { name = "Jose Nimo", email = "nimojose@gmail.com" }
+]
+# Hard floor: scverse-misc itself requires >=3.12
+requires-python = ">=3.12"
+classifiers = [
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+dependencies = [
+    # provides scverse_misc.datasets (parse_registry + fetch); pulls in pooch, pyyaml, tqdm, anndata
+    "scverse-misc[datasets]>=0.1.4",
+    # declared explicitly because AnnData is in our public return type
+    "anndata",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+# ships datasets.yaml alongside the modules, the same way spatialdata does
+packages = ["src/download_proteomics"]
+
+# Own workspace root, so the lockfile and venv live in this repo rather than
+# in the uv workspace that happens to exist at ~/.
+[tool.uv.workspace]
+members = []
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = ["--import-mode=importlib"]
